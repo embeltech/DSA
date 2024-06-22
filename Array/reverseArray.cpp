@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <stack>
 void printArray(int arr[],int len)
 {
     for(int i = 0; i <= len-1 ; i++)
@@ -42,6 +43,19 @@ void reverseArrayAlgo(int arr[],int size)
     int * end = arr + size;
     std::reverse(start,end);
 }
+void reverseArrayStack(int arr[],int size)
+{
+    std::stack<int> mystack;
+    for(int i=0; i<=size-1; i++)
+        mystack.push(arr[i]);
+        
+    for(int i=0; i<=size-1; i++)
+    {
+        arr[i] = mystack.top();
+        mystack.pop();
+    }
+        
+}
 int main()
 {
     int a[]={1,2,3,4,5,6,7,8,9,10,11};
@@ -51,11 +65,13 @@ int main()
     //reverseArray(a,size);
     //printArray(a,size);
     
-    reverseArrayRecurssive(a,0,size-1);
-    printArray(a,size);
+    //reverseArrayRecurssive(a,0,size-1);
+    //printArray(a,size);
     
     //reverseArrayAlgo(a,size);
     //printArray(a,size);
 
+    reverseArrayStack(a,size);
+    printArray(a,size);
     return 0;
 }
