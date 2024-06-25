@@ -1,0 +1,144 @@
+#include <iostream>
+
+class Node{
+    private :
+        int data;
+        Node * next;
+    public:
+        Node(int d):data(d),next(nullptr){}
+        Node * getNextNode()
+        {
+            return next;
+        }
+        void setNextNode(Node * nd)
+        {
+            next = nd;
+        }
+        int getData()
+        {
+            return data;
+        }
+
+};
+class MyList{
+    private:
+        Node * head;
+    public:
+        MyList():head(nullptr){}
+        
+        void insertNode(int dt)
+        {
+            
+            Node *newNode = new Node(dt);
+            //if first Node
+            if(head == nullptr)
+            {
+                std::cout<<"Creating first node\n";
+                head = newNode;
+            }
+            else
+            {
+                //insert element at last 
+                Node *currentNode = head;
+                while(currentNode->getNextNode() != nullptr)
+                {
+                    currentNode = currentNode->getNextNode();
+                }
+                currentNode->setNextNode(newNode);
+            }
+        }
+        
+        void printList()
+        {
+            if(head == nullptr)
+            {
+                std::cout<<"List Empty\n";
+            }
+            else
+            {
+                Node *currentNode = head;
+                while(currentNode != nullptr)
+                {
+                    std::cout<<currentNode->getData()<<" ";
+                    currentNode = currentNode->getNextNode();
+                }
+                std::cout<<"\n";
+                
+            }
+            
+        }
+        void deleteNode(int n)
+        {
+            if(head == nullptr)
+            {
+                std::cout<<"empty list\n";
+            }
+            else
+            {
+                if(n == 1)//first Node
+                {
+                    std::cout<<"Deleting 1st node "<<std::endl;
+                    Node * temp = head->getNextNode();
+                    delete head;
+                    head = temp;
+                }
+                else
+                {
+                    int counter = 1;
+                    //traverse list
+                    Node *currentNode = head;
+                    Node *prevNode = nullptr;
+                    bool nodeFound = false;
+                    while(currentNode != nullptr)
+                    {
+                        if(counter == n)
+                        {
+                            nodeFound = true;
+                            break;
+                        }
+                        else
+                        {
+                            //std::cout<<"Data : "<<currentNode->getData();
+                            prevNode = currentNode;
+                            currentNode = currentNode->getNextNode();
+                            counter++;
+                        }
+                    }
+                    if(nodeFound)
+                    {
+                        std::cout<<"Deleting node : "<<counter<<std::endl;
+                        Node *temp = currentNode->getNextNode();
+                        delete currentNode;
+                        prevNode->setNextNode(temp);
+                    }
+                    else
+                    {
+                        std::cout<<"Node out of range\n";
+                    }
+                }
+            }
+        }
+        
+    
+};
+
+int main()
+{
+    std::cout<<"Hello World\n";
+    
+    MyList lst;
+    
+    lst.insertNode(1);
+    lst.insertNode(2);
+    lst.insertNode(3);
+    lst.insertNode(4);
+    lst.printList();
+    
+    lst.deleteNode(2);
+    lst.printList();
+    
+    lst.deleteNode(5);
+    lst.printList();
+
+    return 0;
+}
